@@ -31,13 +31,13 @@ function LatestData() {
                 </Text>
                 <Text>&nbsp;volts</Text>
             </Box>
-            <Box fill>
+            <Box >
                 <Stack fill anchor="center">
-                    <Box fill>
+                    <Box fill align='center'>
                         <Meter
-                            size="full"
+                            // size="full"
                             type="circle"
-                            background="light-2"
+                            background="dark-2"
                             values={[
                                 {
                                     value: batteryPercentage,

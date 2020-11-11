@@ -9,14 +9,21 @@ import Layout from "./components/Layout";
 import "./App.css";
 
 const customTheme = deepMerge(grommet, {
+    global: {
+        focus: {
+            border: {
+                color: 'transparent'
+            }
+        }
+    },
     tab: {
-        color: "text",
+        color: "rgb(140,140,140)",
         active: {
             color: "accent-1",
         },
         border: {
             side: "bottom",
-            color: 'text',
+            color: 'rgb(140,140,140)',
             active: {
                 color: 'control'
             }

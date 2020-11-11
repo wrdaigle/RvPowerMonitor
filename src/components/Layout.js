@@ -8,9 +8,10 @@ import { Box, Grid } from "grommet";
 function Layout() {
     return (
         <Box fill background="dark-1">
-            <Grid fill rows={["6fr", "1fr", "4fr"]}>
+            <Grid fill rows={["6fr","auto", "3fr"]}>
                 <ChartTabs />
                 <TimeSpanSelector />
+                {/* <></> */}
                 <LatestData />
             </Grid>
         </Box>
