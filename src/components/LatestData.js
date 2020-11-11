@@ -3,39 +3,41 @@ import appContext from "../context/appContext";
 
 import { Box, Grid, Meter, Stack, Text } from "grommet";
 
-function LatestData() {
+function LatestData({ isPortrait }) {
     const { powerData } = useContext(appContext);
     if (!powerData) return null;
 
     const batteryPercentage =
         (100 * powerData.latestData.amphours) / powerData.batteryCapacity;
     const amps = powerData.latestData.watts / powerData.latestData.voltage;
+    const rows = isPortrait ? ["1/2", "1/2"] : ['auto'];
+    const columns = isPortrait ? ["1/2", "1/2"] : ["1/4", "1/4", "1/4", "1/4"];
 
     return (
-        <Grid fill columns={["1/2", "1/2"]} rows={["1/2", "1/2"]} pad='medium'>
-            <Box align='center' justify="center" direction="row">
-                <Text size="xxlarge" weight="bold" color='accent-1'>
-                    {Math.round(powerData.latestData.watts*10)/10}
+        <Grid fill columns={columns} rows={rows} pad="medium">
+            <Box align="center" justify="center" direction="row">
+                <Text size="xxlarge" weight="bold" color="accent-1">
+                    {Math.round(powerData.latestData.watts * 10) / 10}
                 </Text>
                 <Text>&nbsp;watts</Text>
             </Box>
-            <Box align='center' justify="center" direction="row">
-                <Text size="xxlarge" weight="bold" color='accent-1'>
-                    {Math.round(amps*100)/100}
+            <Box align="center" justify="center" direction="row">
+                <Text size="xxlarge" weight="bold" color="accent-1">
+                    {Math.round(amps * 100) / 100}
                 </Text>
                 <Text>&nbsp;amps</Text>
             </Box>
-            <Box align='center' justify="center" direction="row">
-                <Text size="xxlarge" weight="bold" color='accent-1'>
-                    {Math.round(powerData.latestData.voltage*10)/10}
+            <Box align="center" justify="center" direction="row">
+                <Text size="xxlarge" weight="bold" color="accent-1">
+                    {Math.round(powerData.latestData.voltage * 10) / 10}
                 </Text>
                 <Text>&nbsp;volts</Text>
             </Box>
-            <Box >
+            <Box>
                 <Stack fill anchor="center">
-                    <Box fill align='center'>
+                    <Box fill align="center">
                         <Meter
-                            // size="full"
+                            size="small"
                             type="circle"
                             background="dark-2"
                             values={[
