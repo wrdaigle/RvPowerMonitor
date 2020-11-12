@@ -33,19 +33,31 @@ def getData(hours):
         interval = '60min'
     else:
         interval = '180min'
-    graphData = list(groupDataByInterval(data, interval))
+    graphData = groupDataByInterval(data, interval)
     return {'batteryCapacity':config.BATTERY_CAPACITY, 'graphData':graphData, 'latestData':data[-1]}
 
 def groupDataByInterval(data,interval):
     ''' uses pandas to group data by a time interval '''
     df = pd.DataFrame(data)
     df.set_index(pd.to_datetime(df['time'],unit='ms'),inplace=True)
+    
     grouped = df.resample(interval).mean()
-    for item in ['voltage','amphours','watts']:
-        grouped[item] = round(grouped[item],2)
-    grouped.dropna(inplace=True)
-    grouped['time'] = grouped.index.astype(np.int64) / int(1e6)
-    return grouped.T.to_dict().values()
+
+    grouped_min = df.resample(interval).min()
+    grouped_min.drop(['voltage','amphours'], axis=1,inplace=True)
+    grouped_min.rename(columns={'watts':'watts_min'},inplace=True)
+
+    grouped_max = df.resample(interval).max()
+    grouped_max.drop(['voltage','amphours'], axis=1,inplace=True)
+    grouped_max.rename(columns={'watts':'watts_max'},inplace=True)
+    
+    allDFs = pd.concat([grouped,grouped_min,grouped_max],axis=1)
+
+    for item in ['voltage','amphours','watts','watts_min','watts_max']:
+        allDFs[item] = round(allDFs[item],2)
+    allDFs.dropna(inplace=True)
+    allDFs['time'] = allDFs.index.astype(np.int64) / int(1e6)
+    return list(allDFs.T.to_dict().values())
 
 def getLastAmpHour():
     sql = 'SELECT amphours from records order by time desc limit 1'

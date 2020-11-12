@@ -29,7 +29,7 @@ function PowerCharts() {
                         bottom: 5,
                     }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid stroke='rgba(120,120,120,0.2)'  />
                     <XAxis
                         dataKey="time"
                         scale="time"
@@ -46,11 +46,19 @@ function PowerCharts() {
                     <YAxis
                         width={30}
                         type="number"
-                        domain={chartMetric==='amphours'?[0.200]:["dataMin", "dataMax"]}
+                        domain={
+                            chartMetric === "amphours"
+                                ? [0.2]
+                                : ["dataMin", "dataMax"]
+                        }
                         style={{ fontSize: "10px", fill: "rgb(200,200,200)" }}
-                        ticks={chartMetric==='amphours'?[0,25,50,75,100,125,150,175,200]:null}
+                        ticks={
+                            chartMetric === "amphours"
+                                ? [0, 25, 50, 75, 100, 125, 150, 175, 200]
+                                : null
+                        }
                     />
-                    {chartMetric === "watts" && (
+                    {chartMetric === "watts" && [
                         <Line
                             key={chartMetric}
                             type="linear"
@@ -58,8 +66,27 @@ function PowerCharts() {
                             stroke="#6FFFB0"
                             strokeWidth={2}
                             dot={false}
+                        />,
+                        <Line
+                            key={"watts_min"}
+                            type="linear"
+                            dataKey={"watts_min"}
+                            stroke="rgba(111, 255, 176,0.5)"
+
+                            strokeDasharray="5 5"
+                            strokeWidth={1}
+                            dot={false}
+                        />,
+                        <Line
+                            key={"watts_max"}
+                            type="linear"
+                            dataKey={"watts_max"}
+                            stroke="rgba(111, 255, 176,0.5)"
+                            strokeDasharray="5 5"
+                            strokeWidth={1}
+                            dot={false}
                         />
-                    )}
+                    ]}
                     {chartMetric === "voltage" && (
                         <Line
                             key={chartMetric}
