@@ -27,12 +27,11 @@ Raspberry Pi based battery monitor for 12v system
   - Set locale
   - Set timezone
   - Enable SPI (required for the analog to digital converter)
-  - Update
   - Expand file system
 - `sudo reboot`
 - Connect to pi via ssh
   - Install the PiPowerMeter software by running the following command (you must install with root privileges such as the built-in pi account)
-    - wget -O https://raw.githubusercontent.com/wrdaigle/RvPowerMonitor/main/setup.sh | bash
+    - wget -O - https://raw.githubusercontent.com/wrdaigle/RvPowerMonitor/main/setup.sh | bash
 - After restart, verify that everything is working by opening a browser to Open your browser to http://<Your Raspberry Pi's IP Address>
 
 ## Turn old cell phone into kiosk
