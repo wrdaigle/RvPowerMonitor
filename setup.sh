@@ -11,8 +11,7 @@ sudo apt-get -y upgrade
 if [ ! -d "RvPowerMonitor" ]; then
 
     echo '>>> Installing pip3'
-    sudo apt-get install python3-pip
-    sudo pip3 install --upgrade setuptools
+    sudo apt install python3-pip -y
     
     echo '>>> Fixing issue with numpy library'
     sudo apt-get install libatlas-base-dev
@@ -28,10 +27,10 @@ if [ ! -d "RvPowerMonitor" ]; then
     cd RvPowerMonitor
 
     echo '>>> Adding cron job to start reader after reboot'
-    (sudo crontab -u root -l 2>/dev/null; echo "@reboot sudo python3 /home/pi/RvPowerMonitor/python/reader.py &") | sudo crontab -u root -
+    (sudo crontab -u root -l 2>/dev/null; echo "@reboot python3 /home/pi/RvPowerMonitor/python/reader.py &") | sudo crontab -u root -
 
     echo '>>> Adding cron job to start api server after reboot'
-    (sudo crontab -u root -l 2>/dev/null; echo "@reboot sudo python3 /home/pi/RvPowerMonitor/python/api.py &") | sudo crontab -u root -
+    (sudo crontab -u root -l 2>/dev/null; echo "@reboot python3 /home/pi/RvPowerMonitor/python/api.py &") | sudo crontab -u root -
 
     ASK_TO_REBOOT=1
 else
