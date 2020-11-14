@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/RvPowerMonitor/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/static/RvPowerMonitor/static/js/main.a969d623.chunk.js",
+    "main.js.map": "/static/RvPowerMonitor/static/js/main.a969d623.chunk.js.map",
+    "runtime-main.js": "/static/RvPowerMonitor/static/js/runtime-main.f5775310.js",
+    "runtime-main.js.map": "/static/RvPowerMonitor/static/js/runtime-main.f5775310.js.map",
+    "static/js/2.2b313f29.chunk.js": "/static/RvPowerMonitor/static/js/2.2b313f29.chunk.js",
+    "static/js/2.2b313f29.chunk.js.map": "/static/RvPowerMonitor/static/js/2.2b313f29.chunk.js.map",
+    "static/js/3.3627f10c.chunk.js": "/static/RvPowerMonitor/static/js/3.3627f10c.chunk.js",
+    "static/js/3.3627f10c.chunk.js.map": "/static/RvPowerMonitor/static/js/3.3627f10c.chunk.js.map",
+    "index.html": "/static/RvPowerMonitor/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/static/RvPowerMonitor/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.2b313f29.chunk.js.LICENSE.txt": "/static/RvPowerMonitor/static/js/2.2b313f29.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f5775310.js",
+    "static/js/2.2b313f29.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.a969d623.chunk.js"
+  ]
+}
