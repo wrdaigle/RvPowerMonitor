@@ -7,15 +7,18 @@ echo '>>> Update OS Image'
 sudo apt-get update
 sudo apt-get -y upgrade
 
-# install and configure PiPowerMeter
+# install and configure RvPowerMonitor if it has not been done already
 if [ ! -d "RvPowerMonitor" ]; then
 
     echo '>>> Installing pip3'
     sudo apt-get install python3-pip
     sudo pip3 install --upgrade setuptools
     
+    echo '>>> Fixing issue with numpy library'
+    sudo apt-get install libatlas-base-dev
+
     echo '>>> Installing python dependencies'   
-    sudo python3 flask flask_compress flask_cors pandas numpy gpiozero
+    sudo pip3 install flask flask_compress flask_cors pandas numpy gpiozero RPi.GPIO spidev
 
     echo '>>> Installing Git'
     sudo apt-get -y install git
@@ -32,10 +35,10 @@ if [ ! -d "RvPowerMonitor" ]; then
 
     ASK_TO_REBOOT=1
 else
-    echo '>>> PiPowerMeter already installed'
+    echo '>>> RvPowerMonitor already installed'
 fi
  
-echo '>>> PiPowerMeter is installed'
+echo '>>> RvPowerMonitor is installed'
 if [ $ASK_TO_REBOOT -ne 0 ]; then
     echo '>>> Restarting...'
     sudo reboot
