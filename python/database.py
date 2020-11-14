@@ -1,11 +1,29 @@
 from datetime import datetime
+import os
 import sqlite3
 import config
 import pandas as pd
 import numpy as np
 
-databaseFile = '/home/pi/logger.db'
-# databaseFile = r'C:\Personal\RvPowerMonitor\logger.db'
+databaseFile = '/home/pi/RvPowerMonitor/logger.db'
+# databaseFile = r'C:\Personal\RvPowerMonitor\logger.db'  # for local testing only
+
+def createDatabase():
+    if os.path.exists(databaseFile) == False:
+        conn = create_connection(databaseFile)
+        with conn:
+            conn.execute(
+                '''
+                CREATE TABLE records (
+                    time INT PRIMARY KEY,
+                    voltage REAL,
+                    watts REAL,
+                    amphours REAL
+                );
+                '''
+            )
+            conn.execute('CREATE INDEX idx_time ON records (time);')
+        
 
 def getData(hours):
     sql = 'SELECT voltage, watts, amphours, time from records where time > ? order by time'
@@ -84,13 +102,13 @@ def fromTimeStamp(timestamp):
 def timeStamp():
     return int(1000*datetime.now().timestamp())
 
-def add_record(current, voltage, watts, amphours, dod):
-    sql = ''' INSERT INTO records(current, voltage, watts, amphours, dod, time)
-              VALUES(?,?,?,?,?,?) '''
+def add_record(voltage, watts, amphours):
+    sql = ''' INSERT INTO records(voltage, watts, amphours, time)
+              VALUES(?,?,?,?) '''
     conn = create_connection(databaseFile)
     with conn:
         cur = conn.cursor()
-        cur.execute(sql, [current, voltage, watts, amphours, dod, timeStamp()])
+        cur.execute(sql, [voltage, watts, amphours, timeStamp()])
         conn.commit()
         lastrowid = cur.lastrowid
     return lastrowid

@@ -1,13 +1,25 @@
 const { deploy } = require("sftp-sync-deploy");
+const fse = require('fs-extra'); 
 require("dotenv").config();
 
+//local copy for github
+fse.copy("./build/index.html", "./python/templates/index.html", {overwrite:true}, err => {
+    if (err) return console.error(err)
+    console.log('success!')
+}) 
+fse.copy("./build", "./python/static/RvPowerMonitor", {overwrite:true}, err => {
+    if (err) return console.error(err)
+    console.log('success!')
+})
+
+//remote copy to rpi
 let config = {
   host: process.env.RPI_IP,
   port: 22,
   username: process.env.RPI_USER,
   password: process.env.RPI_PASSWORD,
   localDir: "./build",
-  remoteDir: "/home/pi/python/static/RvPowerMonitor",
+  remoteDir: "/home/pi/RvPowerMonitor/python/static/RvPowerMonitor",
 };
 
 let options = {
@@ -27,7 +39,7 @@ deploy(config, options)
 
 
 //move the index file to the templates folder
-config.remoteDir = "/home/pi/python/templates"
+config.remoteDir = "/home/pi/RvPowerMonitor/python/templates"
 options.exclude = ['!index.html'];
 options.excludeMode = 'ignore';
 

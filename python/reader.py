@@ -17,6 +17,9 @@ def calculateVoltage(analogValue):
     r2=1000
     return 5*analogValue*(r1+r2)/r2
 
+# create an empty database if one doesn't exist
+database.createDatabase()
+
 lastAH = database.getLastAmpHour()
 
 while True:
@@ -44,4 +47,4 @@ while True:
 
     # print('Amps:', round(current,2),'  Volts:', round(voltage,2), '  Watts', round(watts,1))
 
-    database.add_record(round(current,2), round(voltage,2), round(watts,1), amphours, round(dod,2))
+    database.add_record(round(voltage,2), round(watts,1), amphours)
