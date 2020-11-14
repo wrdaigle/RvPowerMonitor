@@ -13,11 +13,11 @@ if [ ! -d "RvPowerMonitor" ]; then
     echo '>>> Installing pip3'
     sudo apt install python3-pip -y
     
-    echo '>>> Fixing issue with numpy library'
-    sudo apt-get install libatlas-base-dev
-
     echo '>>> Installing python dependencies'   
     sudo pip3 install flask flask_compress flask_cors pandas numpy gpiozero RPi.GPIO spidev
+
+    echo '>>> Fixing issue with numpy library'
+    sudo apt-get install libatlas-base-dev
 
     echo '>>> Installing Git'
     sudo apt-get -y install git
