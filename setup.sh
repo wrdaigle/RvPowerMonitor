@@ -17,7 +17,7 @@ if [ ! -d "RvPowerMonitor" ]; then
     sudo pip3 install flask flask_compress flask_cors pandas numpy gpiozero RPi.GPIO spidev
 
     echo '>>> Fixing issue with numpy library'
-    sudo apt-get install libatlas-base-dev
+    sudo apt-get install libatlas-base-dev -y
 
     echo '>>> Installing Git'
     sudo apt-get -y install git
