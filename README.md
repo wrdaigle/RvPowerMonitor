@@ -22,7 +22,7 @@ Raspberry Pi based battery monitor for 12v system
 
 ## Raspberry Pi Setup
 - Connect to pi via ssh
-- `sudo raspi-cofig`
+- `sudo raspi-config`
   - Change password
   - Set locale
   - Set timezone
@@ -39,5 +39,25 @@ Raspberry Pi based battery monitor for 12v system
 - Install "Fully Kiosk" from the app store. 
 - I believe this is supported by both Android and Apple phones.  It works great on my Android.  I went and ahead and bought a Plus license for the advanced features. 
 
-## Setup up hotspot on Raspberry Pi
-- Directions at https://raspap.com/
+## Assign a static IP to the raspberry pi
+Edit the network config file using the following command:
+```
+sudo nano /etc/dhcpcd.conf
+```
+Add the following to the file.  
+```
+interface wlan0
+static ip_address=192.168.4.200
+static routers=192.168.4.1
+static domain_name_servers=8.8.8.8
+```
+
+## Setup up hotspot on Raspberry Pi 
+
+See https://github.com/idev1/rpihotspot.git for details, but the TLDR is below:
+```
+git clone https://github.com/idev1/rpihotspot.git
+cd rpihotspot
+sudo chmod +x setup-network.sh
+sudo ./setup-network.sh --install --ap-ssid="MyAccessPoint" --ap-password="AccessPointPW" --ap-password-encrypt --ap-country-code="US" --ap-ip-address="10.0.0.1" --wifi-interface="wlan0"
+```

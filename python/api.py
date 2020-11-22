@@ -6,7 +6,7 @@ from json import dumps
 import database
 import config
 import os
-
+import time
 app = Flask(__name__)
 Compress(app)           ## gzips when possible
 CORS(app)               ## enable cors
@@ -21,7 +21,9 @@ def index():
 
 @app.route('/api/hours/<hrs>')
 def readerData(hrs):
+    ct = time.time()
     data = database.getData(int(hrs))
+    data['dataFetchTime'] = time.time() - ct
     return getJsonResponse(data)
     
 @app.route('/utils/reboot', methods=["GET", "POST"])

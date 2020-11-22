@@ -9,6 +9,7 @@ import {
     YAxis,
     CartesianGrid,
     ResponsiveContainer,
+    Legend,
 } from "recharts";
 import moment from "moment";
 import { Box } from "grommet";
@@ -29,7 +30,7 @@ function PowerCharts() {
                         bottom: 5,
                     }}
                 >
-                    <CartesianGrid stroke='rgba(120,120,120,0.2)'  />
+                    <CartesianGrid stroke="rgba(120,120,120,0.2)" />
                     <XAxis
                         dataKey="time"
                         scale="time"
@@ -44,7 +45,7 @@ function PowerCharts() {
                         style={{ fontSize: "10px", fill: "rgb(200,200,200)" }}
                     />
                     <YAxis
-                        width={30}
+                        width={60}
                         type="number"
                         domain={
                             chartMetric === "amphours"
@@ -57,6 +58,13 @@ function PowerCharts() {
                                 ? [0, 25, 50, 75, 100, 125, 150, 175, 200]
                                 : null
                         }
+                        label={{
+                            value: chartMetric === "watts" ? 'Power (watts)' : chartMetric === "voltage" ? 'Battery Voltage' : 'Battery Status (Amp hours)',
+                            angle: -90,
+                            position: "left",
+                            fill: "rgb(111, 255, 176)",
+                            fontSize: "12px",
+                        }}
                     />
                     {chartMetric === "watts" && [
                         <Line
@@ -72,7 +80,6 @@ function PowerCharts() {
                             type="linear"
                             dataKey={"watts_min"}
                             stroke="rgba(111, 255, 176,0.5)"
-
                             strokeDasharray="5 5"
                             strokeWidth={1}
                             dot={false}
@@ -85,7 +92,7 @@ function PowerCharts() {
                             strokeDasharray="5 5"
                             strokeWidth={1}
                             dot={false}
-                        />
+                        />,
                     ]}
                     {chartMetric === "voltage" && (
                         <Line

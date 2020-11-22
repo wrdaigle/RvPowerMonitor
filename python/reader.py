@@ -6,8 +6,10 @@ from datetime import datetime
 import database
 import config
 
-sensor_current = MCP3008(channel=0)
-sensor_voltage = MCP3008(channel=1)
+supply_voltage = 5.19
+
+sensor_current = MCP3008(channel=0, max_voltage=supply_voltage)
+sensor_voltage = MCP3008(channel=1, max_voltage=supply_voltage)
 
 def Average(lst): 
     return sum(lst) / len(lst) 
@@ -15,7 +17,7 @@ def Average(lst):
 def calculateVoltage(analogValue):
     r1=4700
     r2=1000
-    return 5*analogValue*(r1+r2)/r2
+    return supply_voltage*analogValue*(r1+r2)/r2
 
 # create an empty database if one doesn't exist
 database.createDatabase()
@@ -36,7 +38,7 @@ while True:
     averageCurrentReading = Average(currentReadings)
 
     voltage = calculateVoltage(averageVoltageReading)
-    current = -1*(averageCurrentReading - 0.5)*100
+    current = -1*(averageCurrentReading - 0.5)*200
     watts = current*voltage
 
     elapseTime = time() - ct
