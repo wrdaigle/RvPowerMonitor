@@ -50,7 +50,7 @@ function LatestData({ isPortrait }) {
                     </Box>
                     <Box align="center" direction="row">
                         <Text size="xxlarge" weight="bold">
-                            {Math.round(batteryPercentage, 0)}
+                            {Math.round(batteryPercentage*10)/10}
                         </Text>
                         <Text>%</Text>
                     </Box>
